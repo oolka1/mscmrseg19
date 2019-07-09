@@ -102,7 +102,7 @@ class fudandataset(data.Dataset):
         else:
             slices= self.test_data[index]
             
-        return torch.from_numpy(slices).float(), 
+        return torch.from_numpy(slices).float() 
     
     def __len__(self):
         if self.train:
