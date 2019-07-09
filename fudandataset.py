@@ -79,9 +79,9 @@ class fudandataset(data.Dataset):
             file_data = nib.load(file_path)
             file_data = file_data.get_data()
             d = file_data.shape[2]
-           for i in range(d):
-             data = file_data[:,:,i]
-             x=data.shape[0]
+            for i in range(d):
+              data = file_data[:,:,i]
+              x=data.shape[0]
                         
            img=Image.fromarray(np.int32(data))
            img1=img.resize((256, 256))
