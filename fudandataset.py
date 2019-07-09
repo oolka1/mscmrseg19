@@ -76,50 +76,25 @@ class fudandataset(data.Dataset):
             print('loading test data ')
             self.test_data = [] 
             self.test_labels = [] 
-            files = os.listdir(root)
-            files.sort()
-            for file_name in files:
-                if 'manual' in file_name:
-                    file_path = os.path.join(self.root,file_name)
-                    file_data = nib.load(file_path)
-                    file_data = file_data.get_data()
-                    d = file_data.shape[2]
-                    for i in range(d):
-                        labels = file_data[:,:,i]
-                        labels[labels==200]=1
-                        labels[labels==500]=2
-                        labels[labels==600]=3
-                        x=labels.shape[0]
+            file_data = nib.load(file_path)
+            file_data = file_data.get_data()
+            d = file_data.shape[2]
+           for i in range(d):
+             data = file_data[:,:,i]
+             x=data.shape[0]
                         
-                        img=Image.fromarray(np.uint8(labels))
-                        img1=img.resize((256, 256))
-                        labels = np.array(img1)
-                        x=256
-                        x1=int(0.25*x)
-                        labels=labels[x1:x1+128,]
-                        labels=labels[:,x1:x1+128]
-                        self.test_labels.append(labels)
-                else:
-                    file_path = os.path.join(self.root,file_name)
-                    file_data = nib.load(file_path)
-                    file_data = file_data.get_data()
-                    d = file_data.shape[2]
-                    for i in range(d):
-                        data = file_data[:,:,i]
-                        x=data.shape[0]
-                        
-                        img=Image.fromarray(np.int32(data))
-                        img1=img.resize((256, 256))
-                        data = np.array(img1)
-                        x=256
-                        x1=int(0.25*x)
-                        data=data[x1:x1+128,]
-                        data=data[:,x1:x1+128]
-                        data=data.astype(np.float32)
-                        max1=data.max()
-                        max1=max1.astype(np.float32)
-                        data=data/max1  
-                        self.test_data.append(data[:,:,np.newaxis].transpose(2,0,1))
+           img=Image.fromarray(np.int32(data))
+           img1=img.resize((256, 256))
+           data = np.array(img1)
+           x=256
+           x1=int(0.25*x)
+           data=data[x1:x1+128,]
+           data=data[:,x1:x1+128]
+           data=data.astype(np.float32)
+           max1=data.max()
+           max1=max1.astype(np.float32)
+           data=data/max1  
+           self.test_data.append(data[:,:,np.newaxis].transpose(2,0,1))
                         
     def __getitem__(self, index):
         if self.train:
