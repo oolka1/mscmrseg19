@@ -76,7 +76,7 @@ class fudandataset(data.Dataset):
             print('loading test data ')
             self.test_data = [] 
             self.test_labels = [] 
-            file_data = nib.load(file_path)
+            file_data = nib.load(root)
             file_data = file_data.get_data()
             d = file_data.shape[2]
             for i in range(d):
