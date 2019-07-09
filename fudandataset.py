@@ -100,9 +100,9 @@ class fudandataset(data.Dataset):
         if self.train:
     	    slices, label = self.train_data[index], self.train_labels[index] 
         else:
-            slices, label = self.test_data[index], self.test_labels[index]
+            slices= self.test_data[index]
             
-        return torch.from_numpy(slices).float(), torch.from_numpy(label).float(),
+        return torch.from_numpy(slices).float(), 
     
     def __len__(self):
         if self.train:
