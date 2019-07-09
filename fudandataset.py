@@ -80,21 +80,21 @@ class fudandataset(data.Dataset):
             file_data = file_data.get_data()
             d = file_data.shape[2]
             for i in range(d):
-              data = file_data[:,:,i]
-              x=data.shape[0]
+                data = file_data[:,:,i]
+                x=data.shape[0]
                         
-           img=Image.fromarray(np.int32(data))
-           img1=img.resize((256, 256))
-           data = np.array(img1)
-           x=256
-           x1=int(0.25*x)
-           data=data[x1:x1+128,]
-           data=data[:,x1:x1+128]
-           data=data.astype(np.float32)
-           max1=data.max()
-           max1=max1.astype(np.float32)
-           data=data/max1  
-           self.test_data.append(data[:,:,np.newaxis].transpose(2,0,1))
+            img=Image.fromarray(np.int32(data))
+            img1=img.resize((256, 256))
+            data = np.array(img1)
+            x=256
+            x1=int(0.25*x)
+            data=data[x1:x1+128,]
+            data=data[:,x1:x1+128]
+            data=data.astype(np.float32)
+            max1=data.max()
+            max1=max1.astype(np.float32)
+            data=data/max1  
+            self.test_data.append(data[:,:,np.newaxis].transpose(2,0,1))
                         
     def __getitem__(self, index):
         if self.train:
